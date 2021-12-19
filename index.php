@@ -7,7 +7,7 @@ $loader->register();
 // ------------------------------------------------------------
 
 
-// usables ----------------------------------------------------
+// Uses ----------------------------------------------------
 use framework\http\HttpRequest;
 use framework\utils\Router;
 use framework\View;

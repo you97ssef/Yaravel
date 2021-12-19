@@ -28,16 +28,6 @@ class Query
         return $this;
     }
 
-    /*public function where(string $col, string $op, $val): Query
-    {
-        if (isset($this->where))
-            $this->where .= " and $col $op ?";
-        else
-            $this->where = "$col $op ?";
-        $this->args[] = $val;
-        return $this;
-    }*/
-
     public function where(array $conditions): Query
     {
         foreach ($conditions as $condition) {
@@ -75,6 +65,8 @@ class Query
 
         if ($statement->execute($this->args))
             return $statement->fetchAll(PDO::FETCH_OBJ);
+
+        return [];
     }
 
     public function one()
@@ -93,11 +85,13 @@ class Query
 
         if ($statement->execute($this->args))
             return $statement->fetch(PDO::FETCH_OBJ);
+
+        return null;
     }
 
-    public function delete()
+    public function delete(): int
     {
-        $this->sql = "delete from $this->sqltable";
+        $this->sql = "DELETE FROM $this->sqltable";
         if (isset($this->where))
             $this->sql .= " where $this->where";
 
@@ -106,28 +100,32 @@ class Query
 
         if ($statement->execute($this->args))
             return $statement->rowCount();
+
+        return -1;
     }
 
-    public function insert(array $data)
+    public function insert(array $data): int
     {
-        $colonnes = [];
+        $columns = [];
         $values = [];
 
         foreach ($data as $key => $value) {
-            array_push($colonnes, $key);
-            array_push($values, "?");
+            $columns[] = $key;
+            $values[] = "?";
             $this->args[] = $value;
         }
 
-        $colonnes = implode(', ', $colonnes);
+        $columns = implode(', ', $columns);
         $values = implode(', ', $values);
 
-        $this->sql = "insert into $this->sqltable($colonnes) values($values)";
+        $this->sql = "INSERT INTO $this->sqltable($columns) VALUES($values)";
 
         $db = ConnectionFactory::getConnection();
         $statement = $db->prepare($this->sql);
 
         if ($statement->execute($this->args))
             return $db->lastInsertId();
+
+        return -1;
     }
 }

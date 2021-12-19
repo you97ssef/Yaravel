@@ -6,21 +6,19 @@ use framework\View;
 
 class ErrorView extends View
 {
-    private function renderError(int $code, string $message)
+    private function renderError(int $code, string $message): string
     {
-        $html = <<<NOTFOUND
+        return <<<NOTFOUND
             <h1> $code | $message </h1>
         NOTFOUND;
-
-        return $html;
     }
 
-    public function renderNotFound()
+    public function renderNotFound(): string
     {
         return $this->renderError(404, "NOT FOUND");
     }
 
-    public function renderBadRequest()
+    public function renderBadRequest(): string
     {
         return $this->renderError(400, "BAD REQUEST");
     }

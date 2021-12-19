@@ -68,12 +68,12 @@ abstract class View
             <html lang="fr">
                 <head>
                     <meta charset="utf-8">
-                    <title>${title}</title>
-                    ${styles}
+                    <title>$title</title>
+                    $styles
                 </head>
                 <body>
-                    ${body}
-                    ${scripts}
+                    $body
+                    $scripts
                 </body>
             </html>
         HTML;

@@ -9,39 +9,41 @@ abstract class Model
     protected static $table;
     protected static $idColumn = 'id';
 
-    private $_attributs = [];
+    private $_attributes = [];
 
     public function __get($name)
     {
-        if (array_key_exists($name, $this->_attributs))
-            return $this->_attributs[$name];
+        if (array_key_exists($name, $this->_attributes))
+            return $this->_attributes[$name];
 
         if (method_exists($this, $name))
             return $this->$name();
+
+        return null;
     }
 
     public function __set($name, $value)
     {
-        $this->_attributs[$name] = $value;
+        $this->_attributes[$name] = $value;
     }
 
-    public function __construct(array $attributs = null)
+    public function __construct(array $attributes = null)
     {
-        if (!is_null($attributs))
-            $this->_attributs = $attributs;
+        if (!is_null($attributes))
+            $this->_attributes = $attributes;
     }
 
-    public function delete()
+    public function delete(): int
     {
-        return Query::table(static::$table)->where([[static::$idColumn, "=", $this->_attributs[static::$idColumn]]])->delete();
+        return Query::table(static::$table)->where([[static::$idColumn, "=", $this->_attributes[static::$idColumn]]])->delete();
     }
 
-    public function insert()
+    public function insert(): int
     {
-        return $this->id = Query::table(static::$table)->insert($this->_attributs);
+        return $this->id = Query::table(static::$table)->insert($this->_attributes);
     }
 
-    public static function all()
+    public static function all(): array
     {
         $data = Query::table(static::$table)->select()->get();
 
@@ -53,7 +55,7 @@ abstract class Model
         return $objects;
     }
 
-    public static function find($where, array $fields = null)
+    public static function find($where, array $fields = null): array
     {
         if (!is_array($where))
             $data = Query::table(static::$table)->select($fields)->where([[static::$idColumn, "=", $where]])->get();
@@ -102,12 +104,12 @@ abstract class Model
         return $class;
     }
 
-    public function has_many(string $class_name, string $foreign_key)
+    public function has_many(string $class_name, string $foreign_key): array
     {
         $class_name = __NAMESPACE__ . '\\' . $class_name;
         $class = new $class_name();
 
-        $foreign_data = Query::table($class::$table)->select()->where([[$foreign_key, "=", $this->_attributs[static::$idColumn]]])->get();
+        $foreign_data = Query::table($class::$table)->select()->where([[$foreign_key, "=", $this->_attributes[static::$idColumn]]])->get();
 
         $objects = [];
         foreach ($foreign_data as $object) {
@@ -117,8 +119,8 @@ abstract class Model
         return $objects;
     }
 
-    public function getData()
+    public function getData(): array
     {
-        return $this->_attributs;
+        return $this->_attributes;
     }
 }

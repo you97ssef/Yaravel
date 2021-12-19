@@ -26,6 +26,8 @@ class DefaultController extends Controller
 
         $view = new DefaultView($data, $this->request);
 
+        $view::setAppTitle("Welcome to Yaravel");
+
         $view->render("renderBody");
     }
 
@@ -44,6 +46,6 @@ class DefaultController extends Controller
             "framework" => $framework
         ];
 
-        return HttpResponse::respond($data);
+        HttpResponse::respond($data);
     }
 }
