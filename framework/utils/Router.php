@@ -49,8 +49,6 @@ class Router
     private function runView($path)
     {
         try {
-            throw new Exception("Error Processing Request", 1);
-            
             if (array_key_exists($path, $this::$routes)) {
                 $controller = new $this::$routes[$path]["controller"]($this->request);
                 $methode = $this::$routes[$path]["methode"];

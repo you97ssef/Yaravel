@@ -11,7 +11,6 @@ $loader->register();
 use framework\http\HttpRequest;
 use framework\utils\Router;
 use framework\View;
-
 // ------------------------------------------------------------
 
 
@@ -23,6 +22,11 @@ $http = new HttpRequest();
 // Style ------------------------------------------------------
 View::addStyleSheet("/html/css/bootstrap.min.css");
 View::addStyleSheet("/html/css/style.css");
+// ------------------------------------------------------------
+
+
+// Script -----------------------------------------------------
+View::addScript("/html/js/script.js");
 // ------------------------------------------------------------
 
 

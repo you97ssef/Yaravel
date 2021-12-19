@@ -7,6 +7,7 @@ use framework\http\HttpRequest;
 abstract class View
 {
     static protected $style_sheets = [];
+    static protected $scripts = [];
     static protected $app_title = "Yaravel";
 
     protected $data = null;
@@ -24,6 +25,11 @@ abstract class View
         self::$style_sheets[] = $path_to_css_files;
     }
 
+    static public function addScript($path_to_script)
+    {
+        self::$scripts[] = $path_to_script;
+    }
+
     static public function setAppTitle($title)
     {
         self::$app_title = $title;
@@ -38,8 +44,20 @@ abstract class View
         $styles = "";
 
         foreach (self::$style_sheets as $file) {
+            $url = $app_root . $file;
+
             $styles .= <<<HTML
-                <link rel="stylesheet" href="$app_root/$file">
+                <link rel="stylesheet" href="$url">
+            HTML;
+        }
+
+        $scripts = "";
+
+        foreach (self::$scripts as $file) {
+            $url = $app_root . $file;
+
+            $scripts .= <<<HTML
+                <script src="$url"></script>
             HTML;
         }
 
@@ -55,6 +73,7 @@ abstract class View
                 </head>
                 <body>
                     ${body}
+                    ${scripts}
                 </body>
             </html>
         HTML;
