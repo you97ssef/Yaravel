@@ -7,9 +7,10 @@ $loader->register();
 // ------------------------------------------------------------
 
 
-// Uses ----------------------------------------------------
+// Uses -------------------------------------------------------
 use framework\http\HttpRequest;
 use framework\utils\Router;
+use framework\utils\ConnectionFactory;
 use framework\View;
 // ------------------------------------------------------------
 
@@ -27,6 +28,12 @@ View::addStyleSheet("/html/css/style.css");
 
 // Script -----------------------------------------------------
 View::addScript("/html/js/script.js");
+// ------------------------------------------------------------
+
+
+// Database ---------------------------------------------------
+$keys = parse_ini_file("conf/config.ini");
+ConnectionFactory::makeConnection($keys);
 // ------------------------------------------------------------
 
 
