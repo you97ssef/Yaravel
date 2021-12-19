@@ -31,5 +31,4 @@ $router = new Router($http);
 require_once "routes/api.php";
 require_once "routes/web.php";
 $router->run();
-echo $router->urlFor("/fee", ["id"=>"1", "data"=>"data"]);
 // ------------------------------------------------------------

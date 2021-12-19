@@ -28,12 +28,12 @@ class Router
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
         if (array_key_exists($path, $this::$api_routes)) {
-            $controller = new $this::$api_routes[$path][0]($this->request);
+            $controller = new $this::$api_routes[$path]["controller"]($this->request);
 
-            if (!isset($this::$api_routes[$path][1]))
+            if (!isset($this::$api_routes[$path]["methode"]))
                 $methode = strtolower($this->request->method);
             else
-                $methode = $this::$api_routes[$path][1];
+                $methode = $this::$api_routes[$path]["methode"];
 
             echo $controller->$methode();
         } else {
@@ -44,8 +44,9 @@ class Router
     private function runView($path)
     {
         if (array_key_exists($path, $this::$routes)) {
-            $controller = new $this::$routes[$path][0]($this->request);
-            $methode = $this::$routes[$path][1];
+            var_dump(self::$routes);
+            $controller = new $this::$routes[$path]["controller"]($this->request);
+            $methode = $this::$routes[$path]["methode"];
             $controller->$methode();
         } else {
             Controller::viewNotFound($this->request);
@@ -64,7 +65,7 @@ class Router
 
     public function urlFor($route_name = null, $param_list = [])
     {
-        $url = $this->request->host_name; 
+        $url = $this->request->host_name;
 
         $url .= $this->request->script_name . $route_name;
 
@@ -72,14 +73,22 @@ class Router
 
         return $url;
     }
-    
+
     public function addRoute($url, $controller, $methode, $access_lvl = -1)
     {
-        $this::$routes[$url] = [$controller, $methode, $access_lvl];
+        $this::$routes[$url] = [
+            "controller" => $controller,
+            "methode" => $methode,
+            "access_level" => $access_lvl
+        ];
     }
 
     public function api($url, $controller, $methode = null, $access_lvl = -1)
     {
-        $this::$api_routes[$url] = [$controller, $methode, $access_lvl];
+        $this::$api_routes[$url] = [
+            "controller" => $controller,
+            "methode" => $methode,
+            "access_level" => $access_lvl
+        ];
     }
 }
