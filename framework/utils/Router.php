@@ -62,16 +62,17 @@ class Router
         }
     }
 
-    //TODO
-    /*
-    public function urlFor($route_name, $param_list = [])
+    public function urlFor($route_name = null, $param_list = [])
     {
-        $lien = $this->request->script_name;
+        $url = $this->request->host_name; 
 
-        return $lien;
+        $url .= $this->request->script_name . $route_name;
+
+        $url .= "?" . http_build_query($param_list);
+
+        return $url;
     }
-    */
-
+    
     public function addRoute($url, $controller, $methode, $access_lvl = -1)
     {
         $this::$routes[$url] = [$controller, $methode, $access_lvl];

@@ -10,7 +10,8 @@ class HttpRequest
     public $method = null;
     public $get = null;
     public $post = null;
-
+    
+    public $host_name = null;
 
     function __construct()
     {
@@ -21,5 +22,11 @@ class HttpRequest
         $this->method = $_SERVER["REQUEST_METHOD"];
         $this->get = $_GET;
         $this->post = $_POST;
+
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+            $this->host_name = "https://";
+        else
+            $this->host_name = "http://"; 
+        $this->host_name .= $_SERVER['HTTP_HOST']; 
     }
 }
