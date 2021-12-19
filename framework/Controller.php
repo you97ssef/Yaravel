@@ -20,9 +20,9 @@ abstract class Controller
         $view->render("renderNotFound");
     }
 
-    public function viewBadRequest()
+    public static function viewBadRequest($_request)
     {
-        $view = new ErrorView(null, $this->request);
+        $view = new ErrorView(null, $_request);
 
         $view->render("renderBadRequest");
     }

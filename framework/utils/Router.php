@@ -2,6 +2,7 @@
 
 namespace framework\utils;
 
+use Exception;
 use framework\Controller;
 use framework\http\HttpRequest;
 use framework\http\HttpResponse;
@@ -27,29 +28,38 @@ class Router
         header("Access-Control-Max-Age: 3600");
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-        if (array_key_exists($path, $this::$api_routes)) {
-            $controller = new $this::$api_routes[$path]["controller"]($this->request);
+        try {
+            if (array_key_exists($path, $this::$api_routes)) {
+                $controller = new $this::$api_routes[$path]["controller"]($this->request);
 
-            if (!isset($this::$api_routes[$path]["methode"]))
-                $methode = strtolower($this->request->method);
-            else
-                $methode = $this::$api_routes[$path]["methode"];
+                if (!isset($this::$api_routes[$path]["methode"]))
+                    $methode = strtolower($this->request->method);
+                else
+                    $methode = $this::$api_routes[$path]["methode"];
 
-            echo $controller->$methode();
-        } else {
-            echo HttpResponse::respond(["Error" => "NOT FOUND"], Status::$NOT_FOUND);
+                echo $controller->$methode();
+            } else {
+                echo HttpResponse::respond(["Error" => "NOT FOUND"], Status::$NOT_FOUND);
+            }
+        } catch (\Exception $exception) {
+            echo HttpResponse::respond(["Error" => "BAD REQUEST"], Status::$BAD_REQUEST);
         }
     }
 
     private function runView($path)
     {
-        if (array_key_exists($path, $this::$routes)) {
-            var_dump(self::$routes);
-            $controller = new $this::$routes[$path]["controller"]($this->request);
-            $methode = $this::$routes[$path]["methode"];
-            $controller->$methode();
-        } else {
-            Controller::viewNotFound($this->request);
+        try {
+            throw new Exception("Error Processing Request", 1);
+            
+            if (array_key_exists($path, $this::$routes)) {
+                $controller = new $this::$routes[$path]["controller"]($this->request);
+                $methode = $this::$routes[$path]["methode"];
+                $controller->$methode();
+            } else {
+                Controller::viewNotFound($this->request);
+            }
+        } catch (\Exception $exception) {
+            Controller::viewBadRequest($this->request);
         }
     }
 
