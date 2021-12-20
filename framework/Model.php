@@ -7,9 +7,19 @@ use framework\utils\Query;
 abstract class Model
 {
     protected static $table;
-    protected static $idColumn = 'id';
+    protected static $primaryKey = 'id';
 
     private $_attributes = [];
+
+    public static function getTableName(): string
+    {
+        return static::$table;
+    }
+
+    public static function getPrimaryKey(): string
+    {
+        return static::$primaryKey;
+    } 
 
     public function __get($name)
     {
@@ -35,7 +45,7 @@ abstract class Model
 
     public function delete(): int
     {
-        return Query::table(static::$table)->where([[static::$idColumn, "=", $this->_attributes[static::$idColumn]]])->delete();
+        return Query::table(static::$table)->where([[static::$primaryKey, "=", $this->_attributes[static::$primaryKey]]])->delete();
     }
 
     public function insert(): int
@@ -58,7 +68,7 @@ abstract class Model
     public static function find($where, array $fields = null): array
     {
         if (!is_array($where))
-            $data = Query::table(static::$table)->select($fields)->where([[static::$idColumn, "=", $where]])->get();
+            $data = Query::table(static::$table)->select($fields)->where([[static::$primaryKey, "=", $where]])->get();
         else {
             if (is_array($where[0]))
                 $data = Query::table(static::$table)->select($fields)->where($where)->get();
@@ -77,7 +87,7 @@ abstract class Model
     public static function first($where, array $fields = null)
     {
         if (!is_array($where))
-            $data = Query::table(static::$table)->select($fields)->where([[static::$idColumn, "=", $where]])->one();
+            $data = Query::table(static::$table)->select($fields)->where([[static::$primaryKey, "=", $where]])->one();
         else {
             if (is_array($where[0]))
                 $data = Query::table(static::$table)->select($fields)->where($where)->one();
@@ -97,7 +107,7 @@ abstract class Model
             $class_name = __NAMESPACE__ . '\\' . $class_name;
             $class = new $class_name();
 
-            $foreign_data = Query::table($class::$table)->select()->where([[static::$idColumn, "=", $this->$foreign_key]])->one();
+            $foreign_data = Query::table($class::$table)->select()->where([[static::$primaryKey, "=", $this->$foreign_key]])->one();
 
             $class = new $class_name((array) $foreign_data);
         }
@@ -109,7 +119,7 @@ abstract class Model
         $class_name = __NAMESPACE__ . '\\' . $class_name;
         $class = new $class_name();
 
-        $foreign_data = Query::table($class::$table)->select()->where([[$foreign_key, "=", $this->_attributes[static::$idColumn]]])->get();
+        $foreign_data = Query::table($class::$table)->select()->where([[$foreign_key, "=", $this->_attributes[static::$primaryKey]]])->get();
 
         $objects = [];
         foreach ($foreign_data as $object) {

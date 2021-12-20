@@ -1,0 +1,60 @@
+<?php
+
+// Class loader -----------------------------------------------------
+require_once "framework/utils/ClassLoader.php";
+$loader = new framework\utils\ClassLoader('.');
+$loader->register();
+// ------------------------------------------------------------------
+
+
+// Database ---------------------------------------------------------
+use framework\utils\ConnectionFactory;
+
+$keys = parse_ini_file("config/config.ini");
+ConnectionFactory::makeConnection($keys, dirname(__FILE__));
+// ------------------------------------------------------------------
+
+
+function getColumns(string $file): string
+{
+    $tokens = token_get_all(file_get_contents($file));
+    $columns = array();
+    foreach ($tokens as $token) {
+        if ($token[0] == T_COMMENT || $token[0] == T_DOC_COMMENT) {
+            $columns[] = trim($token[1], "//");
+        }
+    }
+    return implode(" , ", $columns);
+}
+
+function execute(string $sql)
+{
+    $db = ConnectionFactory::getConnection();
+    return $db->exec($sql);
+}
+
+$dir = dirname(__FILE__) . "/app/Models";
+$files = array_diff(scandir($dir), array('..', '.'));;
+foreach ($files as $value) {
+    $class = "app\\Models\\" . substr($value, 0, -4);
+
+    $tableName = $class::getTableName();
+    $tableKey = $class::getPrimaryKey();
+
+    $tableColumns = "";
+
+    if ($tableKey == "id") {
+        $tableColumns .= " $tableKey INTEGER AUTO_INCREMENT,";
+    }
+
+    $tableColumns .= getColumns("app/Models/" . $value);
+
+    $tableColumns .= ", PRIMARY KEY($tableKey)";
+
+    $script = "CREATE TABLE $tableName ($tableColumns );";
+
+    if (false !== execute($script))
+        echo "Created table $tableName \n";
+    else
+        echo "Couldn't create table $tableName \n";
+}
