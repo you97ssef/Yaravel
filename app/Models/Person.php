@@ -8,6 +8,7 @@ class Person extends Model
 {
     // name TEXT
     // age INTEGER
+    // role TEXT
 
     protected static $table = "people";
 

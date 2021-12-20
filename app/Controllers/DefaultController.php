@@ -11,11 +11,7 @@ class DefaultController extends Controller
 {
     public function viewDefault()
     {
-        $person = new Person();
-
-        $person->name = "Youssef";
-        $person->age = 24;
-        $person->role = "Creator";
+        $person = Person::first(1);
 
         $framework = "YARAVEL";
 
@@ -26,18 +22,14 @@ class DefaultController extends Controller
 
         $view = new DefaultView($data, $this->request);
 
-        $view::setAppTitle("Welcome to Yaravel");
+        $view::setAppTitle("Welcome to $framework");
 
         $view->render("renderBody");
     }
 
     public function get()
     {
-        $person = new Person();
-
-        $person->name = "Youssef";
-        $person->age = 24;
-        $person->role = "Creator";
+        $person = Person::first(1);
 
         $framework = "YARAVEL";
 

@@ -1,0 +1,25 @@
+<?php
+
+// Class loader -----------------------------------------------------
+require_once "framework/utils/ClassLoader.php";
+$loader = new framework\utils\ClassLoader('.');
+$loader->register();
+// ------------------------------------------------------------------
+
+
+// Database ---------------------------------------------------------
+
+use app\Models\Person;
+use framework\utils\ConnectionFactory;
+
+$keys = parse_ini_file("config/config.ini");
+ConnectionFactory::makeConnection($keys, dirname(__FILE__));
+// ------------------------------------------------------------------
+
+
+$creator = new Person();
+$creator->name = "Youssef";
+$creator->age = 24;
+$creator->role = "Creator";
+
+$creator->insert();
