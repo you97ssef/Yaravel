@@ -107,24 +107,54 @@ class Query
     public function insert(array $data): int
     {
         $columns = [];
+        $prepared = [];
         $values = [];
+
 
         foreach ($data as $key => $value) {
             $columns[] = $key;
-            $values[] = "?";
-            $this->args[] = $value;
+            $prepared[] = "?";
+            $values[] = $value;
         }
 
         $columns = implode(', ', $columns);
-        $values = implode(', ', $values);
+        $prepared = implode(', ', $prepared);
 
-        $this->sql = "INSERT INTO $this->sqltable($columns) VALUES($values)";
+        $this->sql = "INSERT INTO $this->sqltable($columns) VALUES($prepared)";
 
         $db = ConnectionFactory::getConnection();
         $statement = $db->prepare($this->sql);
 
-        if ($statement->execute($this->args))
+        if ($statement->execute($values))
             return $db->lastInsertId();
+
+        return -1;
+    }
+
+    public function update(array $data): int
+    {
+        $columns = [];
+        $values = [];
+
+        foreach ($data as $key => $value) {
+            $columns[] = "$key = ?";
+            $values[] = $value;
+        }
+
+        $columns = implode(', ', $columns);
+
+        $this->sql = "UPDATE $this->sqltable SET $columns";
+
+        if (isset($this->where)) {
+            $this->sql .= " WHERE $this->where;";
+            $values = array_merge($values, $this->args);
+        }
+
+        $db = ConnectionFactory::getConnection();
+        $statement = $db->prepare($this->sql);
+
+        if ($statement->execute($values))
+            return $statement->rowCount();
 
         return -1;
     }

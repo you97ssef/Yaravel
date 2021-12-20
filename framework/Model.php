@@ -133,4 +133,12 @@ abstract class Model
     {
         return $this->_attributes;
     }
+
+    public function update(): int
+    {
+        return Query::table(static::$table)
+            ->where([[static::$primaryKey, "=", $this->_attributes[static::$primaryKey]]])
+            ->update($this->_attributes);
+    
+    }
 }

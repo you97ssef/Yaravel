@@ -38,23 +38,22 @@ $files = array_diff(scandir($dir), array('..', '.'));;
 foreach ($files as $value) {
     $class = "app\\Models\\" . substr($value, 0, -4);
 
-    $tableName = $class::getTableName();
-    $tableKey = $class::getPrimaryKey();
-
-    $tableColumns = "";
-
-    if ($tableKey == "id") {
-        $tableColumns .= " $tableKey INTEGER AUTO_INCREMENT,";
+    $Name = $class::getTableName();
+    $Key = $class::getPrimaryKey();
+    
+    $Columns = getColumns("app/Models/" . $value);
+    
+    if ($Key == "id") {
+        $Columns .= ", $Key INTEGER";
+        $Columns .= ", PRIMARY KEY($Key AUTOINCREMENT)";
+    } else {
+        $Columns .= ", PRIMARY KEY($Key)";
     }
 
-    $tableColumns .= getColumns("app/Models/" . $value);
-
-    $tableColumns .= ", PRIMARY KEY($tableKey)";
-
-    $script = "CREATE TABLE $tableName ($tableColumns );";
+    $script = trim(preg_replace('/\s+/', ' ', "CREATE TABLE $Name ($Columns);"));
 
     if (false !== execute($script))
-        echo "Created table $tableName \n";
+        echo "Created table $Name \n";
     else
-        echo "Couldn't create table $tableName \n";
+        echo "Couldn't create table $Name \n";
 }

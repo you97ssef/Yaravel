@@ -16,7 +16,7 @@ use framework\View;
 
 
 //Http Requests -----------------------------------------------------
-$http = new HttpRequest();
+$request = new HttpRequest();
 // ------------------------------------------------------------------
 
 
@@ -38,7 +38,7 @@ ConnectionFactory::makeConnection($keys, dirname(__FILE__));
 
 
 //App Run -----------------------------------------------------------
-$router = new Router($http);
+$router = new Router($request);
 require_once "routes/api.php";
 require_once "routes/web.php";
 $router->run();
