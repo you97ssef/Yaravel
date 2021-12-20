@@ -1,0 +1,21 @@
+<?php
+
+$conf = parse_ini_file("config/config.ini");
+
+$driver = $conf['driver'];
+$schema = $conf['schema'];
+$host = $conf['host'];
+$username = $conf['username'];
+$password = $conf['password'];
+
+if ($driver == "sqlite") {
+    $file = "$schema.sqlite";
+    if (!is_file($file)) {
+        file_put_contents($file, null);
+        echo "Database Created";
+    }
+} else {
+    $db = new PDO("mysql:host=$host", $username, $password);
+    if (false !== $db->exec("CREATE DATABASE `$schema`;"))
+        echo "Database Created";
+}
