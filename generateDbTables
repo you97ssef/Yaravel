@@ -40,13 +40,14 @@ foreach ($files as $value) {
 
     $Name = $class::getTableName();
     $Key = $class::getPrimaryKey();
-    
-    $Columns = getColumns("app/Models/" . $value);
-    
+
     if ($Key == "id") {
-        $Columns .= ", $Key INTEGER";
+        $Columns = "$Key INTEGER , ";
+        $Columns .= getColumns("app/Models/" . $value);
+
         $Columns .= ", PRIMARY KEY($Key AUTOINCREMENT)";
     } else {
+        $Columns = getColumns("app/Models/" . $value);
         $Columns .= ", PRIMARY KEY($Key)";
     }
 
