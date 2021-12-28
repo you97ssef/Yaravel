@@ -19,7 +19,7 @@ abstract class Model
     public static function getPrimaryKey(): string
     {
         return static::$primaryKey;
-    } 
+    }
 
     public function __get($name)
     {
@@ -50,7 +50,10 @@ abstract class Model
 
     public function insert(): int
     {
-        return $this->id = Query::table(static::$table)->insert($this->_attributes);
+        if (isset($this->_attributes[static::$primaryKey]))
+            return Query::table(static::$table)->insert($this->_attributes);
+        else
+            return $this->_attributes[static::$primaryKey] = Query::table(static::$table)->insert($this->_attributes);
     }
 
     public static function all(): array
@@ -104,10 +107,9 @@ abstract class Model
     public function belongs_to(string $class_name, string $foreign_key)
     {
         if (!is_null($this->$foreign_key)) {
-            $class_name = __NAMESPACE__ . '\\' . $class_name;
             $class = new $class_name();
 
-            $foreign_data = Query::table($class::$table)->select()->where([[static::$primaryKey, "=", $this->$foreign_key]])->one();
+            $foreign_data = Query::table($class::$table)->select(null)->where([[$class::$primaryKey, "=", $this->$foreign_key]])->one();
 
             $class = new $class_name((array) $foreign_data);
         }
@@ -116,14 +118,13 @@ abstract class Model
 
     public function has_many(string $class_name, string $foreign_key): array
     {
-        $class_name = __NAMESPACE__ . '\\' . $class_name;
         $class = new $class_name();
 
         $foreign_data = Query::table($class::$table)->select()->where([[$foreign_key, "=", $this->_attributes[static::$primaryKey]]])->get();
 
         $objects = [];
         foreach ($foreign_data as $object) {
-            $objects[] = new $class_name((array)$object);
+            $objects[] = new $class_name((array) $object);
         }
 
         return $objects;
@@ -139,6 +140,5 @@ abstract class Model
         return Query::table(static::$table)
             ->where([[static::$primaryKey, "=", $this->_attributes[static::$primaryKey]]])
             ->update($this->_attributes);
-    
     }
 }
