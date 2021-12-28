@@ -17,7 +17,7 @@ class ConnectionFactory
         $password = $conf['password'];
 
         if ($driver == "sqlite")
-            self::$pdo = new PDO("sqlite:$file\\$schema.sqlite");
+            self::$pdo = new PDO("sqlite:$file/$schema.sqlite");
         else {
             $dns = $driver . ':host=' . $host . ';dbname=' . $schema;
             self::$pdo = new PDO($dns, $username, $password);
