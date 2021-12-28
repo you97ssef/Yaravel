@@ -1,5 +1,11 @@
 <?php
 
+// Log Errors -------------------------------------------------------
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+// ------------------------------------------------------------------ 
+
+
 // Class loader -----------------------------------------------------
 require_once "framework/utils/ClassLoader.php";
 $loader = new framework\utils\ClassLoader('.');
@@ -43,8 +49,3 @@ require_once "routes/api.php";
 require_once "routes/web.php";
 $router->run();
 // ------------------------------------------------------------------
-
-// Log Errors -------------------------------------------------------
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-// ------------------------------------------------------------------ 
