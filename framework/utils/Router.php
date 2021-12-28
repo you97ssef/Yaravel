@@ -64,7 +64,7 @@ class Router
     public function run()
     {
         $currentPath = $this->request->path_info;
-        if (substr($currentPath, 0, 4) === "/api") {
+        if ($currentPath !== null && substr($currentPath, 0, 4) === "/api") {
             $this->runAPI(substr($currentPath, 4));
         } else {
             $this->runView($currentPath);
