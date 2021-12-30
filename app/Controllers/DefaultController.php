@@ -12,12 +12,14 @@ class DefaultController extends Controller
     public function viewDefault()
     {
         $person = Person::first(1);
+        $people = Person::all();
 
         $framework = "YARAVEL";
 
         $data = [
             "person" => $person,
-            "framework" => $framework
+            "framework" => $framework,
+            "people" => $people
         ];
 
         $view = new DefaultView($data, $this->request);
