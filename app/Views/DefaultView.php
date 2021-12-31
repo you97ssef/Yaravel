@@ -42,13 +42,13 @@ class DefaultView extends View
                         <div class="mb-2 row">
                             <label for="name" class="col-sm-4 col-form-label">Add your name</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="visitor" id="name" placeholder="Enter your name">
+                                <input type="text" class="form-control" name="visitor" id="name" placeholder="Enter your name" required>
                             </div>
                         </div>
                         <div class="mb-2 row">
                             <label for="age" class="col-sm-4 col-form-label">Age</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="age" id="age" placeholder="Enter your age">
+                                <input type="number" class="form-control" name="age" id="age" placeholder="Enter your age" required>
                             </div>
                         </div>
                         <div class="row justify-content-end">

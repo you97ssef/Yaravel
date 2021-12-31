@@ -36,15 +36,17 @@ class DefaultController extends Controller
             $error_view = new ErrorView(null, $this->request);
 
             $error_view->render("renderBadRequest");
+            return;
         }
 
         $visitor = $this->request->post["visitor"];
         $age = $this->request->post["age"];
 
-        if ($visitor === "" && $age === "") {
+        if ($visitor === "" || $age === "") {
             $error_view = new ErrorView(null, $this->request);
 
             $error_view->render("renderBadRequest");
+            return;
         }
 
         $person = new Person();
@@ -56,6 +58,7 @@ class DefaultController extends Controller
             $error_view = new ErrorView(null, $this->request);
 
             $error_view->render("renderBadRequest");
+            return;
         }
 
         $this->viewDefault();
