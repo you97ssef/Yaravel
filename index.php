@@ -28,6 +28,7 @@ View::addStyleSheet("/html/css/style.css");
 
 // Script -----------------------------------------------------------
 View::addScript("/html/js/script.js");
+View::addScript("/html/js/bootstrap.bundle.min.js");
 // ------------------------------------------------------------------
 
 

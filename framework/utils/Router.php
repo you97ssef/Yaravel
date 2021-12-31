@@ -71,13 +71,12 @@ class Router
         }
     }
 
-    public function urlFor($route_name = null, $param_list = [])
+    public static function urlFor($request, $route_name = null, $param_list = [])
     {
-        $url = $this->request->host_name;
+        $url = $request->host_name . $request->script_name . $route_name;
 
-        $url .= $this->request->script_name . $route_name;
-
-        $url .= "?" . http_build_query($param_list);
+        if ($param_list !== [])
+            $url .= "?" . http_build_query($param_list);
 
         return $url;
     }
