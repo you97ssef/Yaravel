@@ -34,7 +34,7 @@ class DefaultView extends View
                     <h1>Greetings People, welcome to $framework, my Framework.</h1>
                     <hr />
                     <p>
-                        I am <a class="link-dark" href="https://youssefb.netlify.app/">$person->name</a>,
+                        I am <a class="link-dark" target="_blank" href="https://youssefb.netlify.app/">$person->name</a>,
                         <b>$person->age</b> years old, the
                         <b>$person->role</b> of this Framework.
                     </p>
@@ -43,7 +43,7 @@ class DefaultView extends View
                         be used for both rendering HTML and as an API. It features a
                         request and routing system, a view engine with support for
                         stylesheets and javascript, and an ORM called 
-                        <a href="https://github.com/you97ssef/Helloquent">Helloquent</a> 
+                        <a target="_blank" href="https://github.com/you97ssef/Helloquent">Helloquent</a> 
                         for database communication. Yaravel is designed to be fast,
                         efficient and flexible, making it an ideal choice for developers
                         looking to build web applications with PHP.
@@ -117,7 +117,7 @@ class DefaultView extends View
                     </div>
 
                     <div class="part" id="tweeter">
-                        <h2><a href="https://tweeeeter.000webhostapp.com/">Tweeter</a></h2>
+                        <h2><a target="_blank" href="https://tweeeeter.000webhostapp.com/">Tweeter</a></h2>
                         <p>
                             Tweeter is a twitter like app built using an early version of this framework it allows 
                             users to post short messages, known as "tweets", and interact with others through 
@@ -125,7 +125,7 @@ class DefaultView extends View
                             tweets from users.
                             <br />
                             <i>
-                                (<a href="https://tweeeeter.000webhostapp.com/">check it out live</a> or the <a href="https://github.com/you97ssef/Tweeter">the repo of this app</a>)
+                                (<a target="_blank" href="https://tweeeeter.000webhostapp.com/">check it out live</a> or the <a target="_blank" href="https://github.com/you97ssef/Tweeter">the repo of this app</a>)
                             </i>
                         </p>
                     </div>
@@ -266,12 +266,12 @@ class DefaultView extends View
                                 The Model component in the framework is responsible for
                                 handling data and business logic, and for communicating
                                 with the database. This is done through the use of
-                                <a href="https://github.com/you97ssef/Helloquent">
+                                <a target="_blank" href="https://github.com/you97ssef/Helloquent">
                                     Helloquent</a
                                 >, an ORM tool specifically built for the framework. For
                                 further details, refer to the
                                 <b>Helloquent</b> documentation in this link
-                                <a href="https://github.com/you97ssef/Helloquent">
+                                <a target="_blank" href="https://github.com/you97ssef/Helloquent">
                                     https://github.com/you97ssef/Helloquent</a
                                 >. <br />
                                 Models should be stored in the
@@ -340,7 +340,7 @@ class DefaultView extends View
                         </p>
                     </div>
                     <hr />
-                    <div class="text-center">© Yaravel 2023 - by <a href="https://youssefb.netlify.app/">Youssef</a></div>
+                    <div class="text-center">© Yaravel 2023 - by <a target="_blank" href="https://youssefb.netlify.app/">Youssef</a></div>
                 </main>
             </section>
         HTML;

@@ -31,7 +31,7 @@
 </div>
 
 <div class="part" id="tweeter">
-    <h2><a href="https://tweeeeter.000webhostapp.com/">Tweeter</a></h2>
+    <h2><a target="_blank" href="https://tweeeeter.000webhostapp.com/">Tweeter</a></h2>
     <p>
         Tweeter is a twitter like app built using an early version of this framework it allows 
         users to post short messages, known as "tweets", and interact with others through 
@@ -39,7 +39,7 @@
         tweets from users.
         <br />
         <i>
-            (<a href="https://tweeeeter.000webhostapp.com/">check it out live</a> or the <a href="https://github.com/you97ssef/Tweeter">the repo of this app</a>)
+            (<a target="_blank" href="https://tweeeeter.000webhostapp.com/">check it out live</a> or the <a target="_blank" href="https://github.com/you97ssef/Tweeter">the repo of this app</a>)
         </i>
     </p>
 </div>
@@ -177,12 +177,12 @@ $router->api("/", DefaultController::class, "post");
             The Model component in the framework is responsible for
             handling data and business logic, and for communicating
             with the database. This is done through the use of
-            <a href="https://github.com/you97ssef/Helloquent">
+            <a target="_blank" href="https://github.com/you97ssef/Helloquent">
                 Helloquent</a
             >, an ORM tool specifically built for the framework. For
             further details, refer to the
             <b>Helloquent</b> documentation in this link
-            <a href="https://github.com/you97ssef/Helloquent">
+            <a target="_blank" href="https://github.com/you97ssef/Helloquent">
                 https://github.com/you97ssef/Helloquent</a
             >. <br />
             Models should be stored in the
@@ -248,4 +248,4 @@ $router->api("/", DefaultController::class, "post");
     </p>
 </div>
 <hr />
-<div>© Yaravel 2023 - by <a href="https://youssefb.netlify.app/">Youssef</a></div>
+<div>© Yaravel 2023 - by <a target="_blank" href="https://youssefb.netlify.app/">Youssef</a></div>
