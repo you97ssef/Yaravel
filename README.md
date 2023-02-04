@@ -12,6 +12,7 @@
 <div class="part" id="summary">
     <h2>Summary</h2>
     <ul>
+        <li><a href="#tweeter">Tweeter</a></li>
         <li><a href="#routing">Routing</a></li>
         <ul>
             <li><a href="#web">Web Routes</a></li>
@@ -27,6 +28,20 @@
         </ul>
         <li><a href="#more-info">More info</a></li>
     </ul>
+</div>
+
+<div class="part" id="tweeter">
+    <h2><a href="https://tweeeeter.000webhostapp.com/">Tweeter</a></h2>
+    <p>
+        Tweeter is a twitter like app built using an early version of this framework it allows 
+        users to post short messages, known as "tweets", and interact with others through 
+        likes and checking out their tweets. The app features a real-time feed of the recent 
+        tweets from users.
+        <br />
+        <i>
+            (<a href="https://tweeeeter.000webhostapp.com/">check it out live</a> or the <a href="https://github.com/you97ssef/Tweeter">the repo of this app</a>)
+        </i>
+    </p>
 </div>
 
 <div class="part" id="routing">
