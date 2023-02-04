@@ -1,8 +1,24 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    background-color: #222;
+}
 
-    height: 100vh;
+* {
+    color: #fff !important;
+}
+
+.card * {
+    color: #222 !important;
+}
+
+.card code {
+    color: #990 !important;
+}
+
+a {
+    color: #0ff !important;
+}
+
+.part {
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
