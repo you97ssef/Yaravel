@@ -186,10 +186,15 @@ class DefaultView extends View
                                 The Model component in the framework is responsible for
                                 handling data and business logic, and for communicating
                                 with the database. This is done through the use of
-                                <code>Hellowoquent</code>, an ORM tool specifically
-                                built for the framework. For further details, refer to
-                                the <code>Hellowoquent</code> documentation. Models
-                                should be stored in the
+                                <a href="https://github.com/you97ssef/Helloquent">
+                                    Helloquent</a
+                                >, an ORM tool specifically built for the framework. For
+                                further details, refer to the
+                                <b>Helloquent</b> documentation in this link
+                                <a href="https://github.com/you97ssef/Helloquent">
+                                    https://github.com/you97ssef/Helloquent</a
+                                >. <br />
+                                Models should be stored in the
                                 <code>/app/Models</code> directory and should extend the
                                 <code>Model</code> class (as demonstrated by the
                                 <code>Person</code> class in the code).
@@ -254,6 +259,8 @@ class DefaultView extends View
                             restrictions.
                         </p>
                     </div>
+                    <hr />
+                    <div class="text-center">© Yaravel 2023 - by <a href="https://youssefb.netlify.app/">Youssef</a></div>
                 </main>
             </section>
         HTML;
