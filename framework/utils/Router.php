@@ -64,20 +64,19 @@ class Router
     public function run()
     {
         $currentPath = $this->request->path_info;
-        if (substr($currentPath, 0, 4) === "/api") {
+        if ($currentPath !== null && substr($currentPath, 0, 4) === "/api") {
             $this->runAPI(substr($currentPath, 4));
         } else {
             $this->runView($currentPath);
         }
     }
 
-    public function urlFor($route_name = null, $param_list = [])
+    public static function urlFor($request, $route_name = null, $param_list = [])
     {
-        $url = $this->request->host_name;
+        $url = $request->host_name . $request->script_name . $route_name;
 
-        $url .= $this->request->script_name . $route_name;
-
-        $url .= "?" . http_build_query($param_list);
+        if ($param_list !== [])
+            $url .= "?" . http_build_query($param_list);
 
         return $url;
     }
