@@ -50,7 +50,10 @@ abstract class Model
 
     public function insert(): int
     {
-        return $this->id = Query::table(static::$table)->insert($this->_attributes);
+        if (isset($this->_attributes[static::$primaryKey]))
+            return Query::table(static::$table)->insert($this->_attributes);
+        else
+            return $this->_attributes[static::$primaryKey] = Query::table(static::$table)->insert($this->_attributes);
     }
 
     public static function all(): array
@@ -107,7 +110,7 @@ abstract class Model
             $class_name = __NAMESPACE__ . '\\' . $class_name;
             $class = new $class_name();
 
-            $foreign_data = Query::table($class::$table)->select()->where([[static::$primaryKey, "=", $this->$foreign_key]])->one();
+            $foreign_data = Query::table($class::$table)->select(null)->where([[$class::$primaryKey, "=", $this->$foreign_key]])->one();
 
             $class = new $class_name((array) $foreign_data);
         }
