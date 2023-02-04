@@ -32,7 +32,7 @@ class Query
     {
         foreach ($conditions as $condition) {
             if (isset($this->where))
-                $this->where .= " and $condition[0] $condition[1] ?";
+                $this->where .= " AND $condition[0] $condition[1] ?";
             else
                 $this->where = "$condition[0] $condition[1] ?";
             $this->args[] = $condition[2];
@@ -44,7 +44,7 @@ class Query
     public function orWhere(string $col, string $op, $val): Query
     {
         if (isset($this->where))
-            $this->where .= " or $col $op ?";
+            $this->where .= " OR $col $op ?";
         else
             $this->where = "$col $op ?";
         $this->args[] = $val;
@@ -53,11 +53,11 @@ class Query
 
     public function get(): array
     {
-        $this->sql = 'select ' . $this->fields .
-            ' from ' . $this->sqltable;
+        $this->sql = 'SELECT ' . $this->fields .
+            ' FROM ' . $this->sqltable;
 
         if (isset($this->where)) {
-            $this->sql .= " where $this->where";
+            $this->sql .= " WHERE $this->where";
         }
 
         $db = ConnectionFactory::getConnection();
@@ -71,11 +71,11 @@ class Query
 
     public function one()
     {
-        $this->sql = 'select' . $this->fields .
-            ' from ' . $this->sqltable;
+        $this->sql = 'SELECT' . $this->fields .
+            ' FROM ' . $this->sqltable;
 
         if (isset($this->where)) {
-            $this->sql .= " where $this->where";
+            $this->sql .= " WHERE $this->where";
         }
 
         $this->sql .= " LIMIT 1";
@@ -93,7 +93,7 @@ class Query
     {
         $this->sql = "DELETE FROM $this->sqltable";
         if (isset($this->where))
-            $this->sql .= " where $this->where";
+            $this->sql .= " WHERE $this->where";
 
         $db = ConnectionFactory::getConnection();
         $statement = $db->prepare($this->sql);

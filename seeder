@@ -18,8 +18,8 @@ ConnectionFactory::makeConnection($keys, dirname(__FILE__));
 
 
 $creator = new Person();
-$creator->name = "Youssef";
-$creator->age = 24;
+$creator->name = "Youssef BAHI";
+$creator->age = 26;
 $creator->role = "Creator";
 
 $creator->insert();

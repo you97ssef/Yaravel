@@ -8,9 +8,9 @@ class ErrorView extends View
 {
     private function renderError(int $code, string $message): string
     {
-        return <<<NOTFOUND
+        return <<<ERROR
             <h1> $code | $message </h1>
-        NOTFOUND;
+        ERROR;
     }
 
     public function renderNotFound(): string

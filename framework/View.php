@@ -12,7 +12,7 @@ abstract class View
 
     protected $data = null;
 
-    private $http;
+    protected $http;
 
     public function __construct($data, HttpRequest $_http)
     {
