@@ -39,7 +39,7 @@ abstract class View
     {
         $title = self::$app_title;
 
-        $app_root = $this->http->host_name;
+        $app_root = $this->http->root;
 
         $styles = "";
 
