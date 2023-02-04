@@ -259,6 +259,8 @@ class DefaultView extends View
                             restrictions.
                         </p>
                     </div>
+                    <hr />
+                    <div class="text-center">© Yaravel 2023 - by <a href="https://youssefb.netlify.app/">Youssef</a></div>
                 </main>
             </section>
         HTML;

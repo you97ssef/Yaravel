@@ -59,7 +59,7 @@
 // $router->addRoute(path, controller path, action);
 $router->addRoute("/", DefaultController::class, "viewDefault");
 ```
-        
+
 <p>
     <i>
         Refer to the examples in
@@ -232,3 +232,5 @@ $router->api("/", DefaultController::class, "post");
         restrictions.
     </p>
 </div>
+<hr />
+<div>© Yaravel 2023 - by <a href="https://youssefb.netlify.app/">Youssef</a></div>
