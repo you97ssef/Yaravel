@@ -54,21 +54,20 @@
                 be executed
             </li>
         </ul>
-        <div class="card my-2">
-            <code class="card-body">
-                // $router->addRoute(path, controller path, action);
-                <br />
-                $router->addRoute("/", DefaultController::class,
-                "viewDefault");
-            </code>
-        </div>
-        <p>
-            <i>
-                Refer to the examples in
-                <b>"/routes/web.php"</b> for more information.
-            </i>
-        </p>
-    </div>
+
+```php
+// $router->addRoute(path, controller path, action);
+$router->addRoute("/", DefaultController::class, "viewDefault");
+```
+        
+<p>
+    <i>
+        Refer to the examples in
+        <b>"/routes/web.php"</b> for more information.
+    </i>
+</p>
+
+</div>
     <div id="api">
         <h4>API Routes</h4>
         <p class="m-0">
@@ -88,22 +87,20 @@
                 method.
             </li>
         </ul>
-        <div class="card my-2">
-            <code class="card-body">
-                // $router->addRoute(path, controller path, method);
-                <br />
-                $router->api("/", DefaultController::class);
-                <br />
-                $router->api("/", DefaultController::class, "post");
-            </code>
-        </div>
-        <p>
-            <i>
-                Refer to the examples in
-                <b>"/routes/api.php"</b> for more information.
-            </i>
-        </p>
-    </div>
+
+```php
+// $router->addRoute(path, controller path, method);
+$router->api("/", DefaultController::class);
+$router->api("/", DefaultController::class, "post");
+```
+
+<p>
+    <i>
+        Refer to the examples in
+        <b>"/routes/api.php"</b> for more information.
+    </i>
+</p>
+</div>
 </div>
 
 <div class="part" id="request">
