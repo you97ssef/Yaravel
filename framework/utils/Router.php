@@ -73,7 +73,7 @@ class Router
 
     public static function urlFor($request, $route_name = null, $param_list = [])
     {
-        $url = $request->host_name . $request->script_name . $route_name;
+        $url = $request->host_name . $request->root . $route_name;
 
         if ($param_list !== [])
             $url .= "?" . http_build_query($param_list);
@@ -97,5 +97,16 @@ class Router
             "methode" => $methode,
             "access_level" => $access_lvl
         ];
+    }
+
+    public static function redirectTo($request, $route_name = null, $param_list = [])
+    {
+        $url = $request->host_name . $request->root . $route_name;
+
+        if ($param_list !== [])
+            $url .= "?" . http_build_query($param_list);
+
+        header('Location: ' . $url);
+        exit();
     }
 }
