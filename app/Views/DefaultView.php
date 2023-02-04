@@ -3,6 +3,7 @@
 namespace app\Views;
 
 use framework\View;
+use framework\utils\Router;
 
 class DefaultView extends View
 {
@@ -11,21 +12,39 @@ class DefaultView extends View
         $person = $this->data["person"];
         $framework = $this->data["framework"];
 
+        $people = $this->data["people"];
+
+        $people_html = "";
+        foreach ($people as $value) {
+            $people_html .= <<<HTML
+                    <tr>
+                        <th scope="row">$value->id</th>
+                        <td>$value->name</td>
+                        <td>$value->age</td>
+                        <td>$value->role</td>
+                    </tr>
+                HTML;
+        }
+
+        $adding_name_route = Router::urlFor($this->http, "/AddName");
+
         return <<<HTML
             <section class="container">
                 <main class="my-5 mx-2">
                     <h1>Greetings People, welcome to $framework, my Framework.</h1>
                     <hr />
                     <p>
-                        I am <b>$person->name</b>, <b>$person->age</b> years old, the
+                        I am <a class="link-dark" href="https://youssefb.netlify.app/">$person->name</a>,
+                        <b>$person->age</b> years old, the
                         <b>$person->role</b> of this Framework.
                     </p>
                     <p>
                         <b>Yaravel</b> is a small, yet robust PHP MVC framework that can
                         be used for both rendering HTML and as an API. It features a
                         request and routing system, a view engine with support for
-                        stylesheets and javascript, and an ORM called Helloquent for
-                        database communication. Yaravel is designed to be fast,
+                        stylesheets and javascript, and an ORM called 
+                        <a href="https://github.com/you97ssef/Helloquent">Helloquent</a> 
+                        for database communication. Yaravel is designed to be fast,
                         efficient and flexible, making it an ideal choice for developers
                         looking to build web applications with PHP.
                     </p>
@@ -33,6 +52,8 @@ class DefaultView extends View
                     <div class="part" id="summary">
                         <h2>Summary</h2>
                         <ul>
+                            <li><a href="#try">Try this framework</a></li>
+                            <li><a href="#tweeter">Tweeter</a></li>
                             <li><a href="#routing">Routing</a></li>
                             <ul>
                                 <li><a href="#web">Web Routes</a></li>
@@ -48,6 +69,65 @@ class DefaultView extends View
                             </ul>
                             <li><a href="#more-info">More info</a></li>
                         </ul>
+                    </div>
+
+                    <div class="part" id="try">
+                        <h2>Try this framework</h2>
+                        <p>Try this framework by adding your name in it.</p>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <h4>Add your name as a visitor</h4>
+                                </div>
+                                <form action="$adding_name_route" method="post">
+                                    <div class="mb-2 row">
+                                        <label for="name" class="col-auto col-form-label">Add your name</label>
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="visitor" id="name" placeholder="Enter your name" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2 row">
+                                        <label for="age" class="col-auto col-form-label">Age</label>
+                                        <div class="col">
+                                            <input type="number" class="form-control" name="age" id="age" placeholder="Enter your age" required>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end">
+                                        <button type="submit" class="btn btn-dark mx-3 col-4">Add your name</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <p class="m-0">People that added their names:</p>
+                        <div class="row p-2">
+                            <table class="table table-hover table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    $people_html
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="part" id="tweeter">
+                        <h2><a href="https://tweeeeter.000webhostapp.com/">Tweeter</a></h2>
+                        <p>
+                            Tweeter is a twitter like app built using an early version of this framework it allows 
+                            users to post short messages, known as "tweets", and interact with others through 
+                            likes and checking out their tweets. The app features a real-time feed of the recent 
+                            tweets from users.
+                            <br />
+                            <i>
+                                (<a href="https://tweeeeter.000webhostapp.com/">check it out live</a> or the <a href="https://github.com/you97ssef/Tweeter">the repo of this app</a>)
+                            </i>
+                        </p>
                     </div>
 
                     <div class="part" id="routing">
