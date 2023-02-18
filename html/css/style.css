@@ -14,7 +14,7 @@ body {
     color: #990 !important;
 }
 
-a {
+a, btn-dark {
     color: #0ff !important;
 }
 
