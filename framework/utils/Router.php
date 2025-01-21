@@ -57,7 +57,7 @@ class Router
                 Controller::viewNotFound($this->request);
             }
         } catch (\Exception $exception) {
-            Controller::viewBadRequest($this->request);
+                Controller::viewBadRequest($this->request);
         }
     }
 

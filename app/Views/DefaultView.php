@@ -26,7 +26,8 @@ class DefaultView extends View
                 HTML;
         }
 
-        $adding_name_route = Router::urlFor($this->http, "/AddName");
+ 	// $adding_name_route = Router::urlFor($this->http, "/AddName");
+	$adding_name_route = "https://yaravel.youssefbahi.com/AddName";
 
         return <<<HTML
             <section class="container">
