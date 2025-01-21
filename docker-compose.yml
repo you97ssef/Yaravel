@@ -1,0 +1,15 @@
+services:
+    yaravel:
+        image: php:8.0-apache
+        container_name: yaravel
+        restart: always
+        ports:
+            - 9001:80
+        volumes:
+            - .:/var/www/html
+        networks:
+            - shared_network
+
+networks:
+    shared_network:
+      external: true
